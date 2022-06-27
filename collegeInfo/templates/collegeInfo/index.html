@@ -16,6 +16,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        {% load static %}
+
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/icons/logo.jpg' %}" />
         
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -30,16 +34,6 @@
 
         <link href="{% static 'slick/slick-theme.css' %} " rel="stylesheet">
         
-        <style>
-            {% comment %} .slick-slide {
-                height:200px;
-             }
-             
-             .slick-slide img {
-                height:800px;
-                width:500px;
-             } {% endcomment %}
-        </style>
 <!--
 
 TemplateMo 575 Leadership Event
@@ -101,19 +95,16 @@ https://templatemo.com/tm-575-leadership-event
             <section id="section_1">
                 <div class="slick-banner">
                     <div>
-                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid"/></a>
+                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid" height="600" width="100%"/></a>
                     </div>
                     <div>
-                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid"/></a>
+                        <a  href="#"><img src="{% static 'images/homepage/cse.jpg' %}" class="image-fluid" height="600" width="100%"/></a>
                     </div>
                     <div>
-                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid"/></a>
+                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid" height="600" width="100%"/></a>
                     </div>
                     <div>
-                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid"/></a>
-                    </div>
-                    <div>
-                        <a  href="#"><img src="{% static 'images/homepage/placements.jpg' %}" class="image-fluid"/></a>
+                        <a  href="#"><img src="{% static 'images/homepage/cse.jpg' %}" class="image-fluid" height="600" width="100%"/></a>
                     </div>
                 </div>
             </section>
