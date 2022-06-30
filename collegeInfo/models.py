@@ -5,6 +5,7 @@ from django.db import models
 class ReachUp(models.Model):
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=60)
-    subject = models.CharField()
+    subject = models.CharField(max_length=100)
+    message = models.CharField(max_length=300)
     class Meta:
-        db_name = "ReachUp"
+        db_table = "ReachUp"

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Gallery{% endblock title %}
+
+
+{% block csslinks %}
+
+{% load static %}
+<link href="{% static 'css/templatemo-leadership-event.css' %} " rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+{% endblock csslinks %}
+
+
+{% block content %}
+<section class="venue section-padding" id="computer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-12">
+                <h2 class="mb-4">Our <u class="text-info">Gallery</u></h2>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/cse-dept1.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/society.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/ece-dept.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/hostel.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/canteen.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/classroom.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/with-transport.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/transport1.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+            <div class="col-lg-4">
+                {% load static %}
+                <img src="{% static 'images/gallery/transport2.jpg' %}" alt="about" width="95%" height="95%"/>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
+{% block jsfiles %}
+
+{% endblock jsfiles %}
