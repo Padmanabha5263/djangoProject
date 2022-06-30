@@ -6,6 +6,7 @@ css<br>
 Jquery<br>
 Bootstrap<br>
 Django<br>
+python<br>
 mysql<br>
 
 happy coading
