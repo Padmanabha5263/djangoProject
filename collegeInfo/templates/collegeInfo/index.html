@@ -94,7 +94,7 @@
                                     <p>Our Technical staff and non technical staff are highly supportive for developing the skills set in students and placemets classes make much effective on students.</p>
                                     <p>Achievements on placements</p>
                                     <ul>
-                                        <li>we got an best placemets at Rural Area 2022</li>
+                                        <li>we got an best placemets award at Rural Area 2022</li>
                                     </ul>
                             </div>
                         </div>
@@ -153,29 +153,31 @@
                         <div class="row">
 
                             <div class="col-lg-8 col-12 mx-auto">
-                                <form class="custom-form contact-form bg-white shadow-lg" action="#" method="post" role="form">
+                                <form class="custom-form contact-form bg-white shadow-lg"  method="post">
                                     {% csrf_token %}
                                     <h2>Please Say Hi</h2>
 
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-12">                                    
-                                            <input type="text" name="txtName" id="txtName" class="form-control" placeholder="Name" required="">
+                                            <input type="text" name="txtName" id="txtName" class="form-control" oninput="validateTextbox(this,true,'Enter name')" placeholder="Name" >
+                                            <div class="form-error-msg"></div>
                                         </div>
 
                                         <div class="col-lg-4 col-md-4 col-12">         
-                                            <input type="email" name="txtEmail" id="txtEmail" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email" required="">
+                                            <input type="email" name="txtEmail" id="txtEmail" oninput="validateTextbox(this,true,'Enter email')" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email" >
+                                            <div class="form-error-msg"></div>
                                         </div>
 
                                         <div class="col-lg-4 col-md-4 col-12">                                    
-                                            <input type="text" name="txtSubject" id="txtSubject" class="form-control" placeholder="Subject">
+                                            <input type="text" name="txtSubject" id="txtSubject" oninput="validateTextbox(this,true,'Enter subject')" class="form-control" placeholder="Subject">
+                                            <div class="form-error-msg"></div>
                                         </div>
 
                                         <div class="col-12">
-                                            <textarea class="form-control" rows="5" id="txtMessage" name="txtMessage" placeholder="Message"></textarea>
-
-                                            <button type="button" class="form-control" id="btnSubmit" onclick=validateForm()>Submit</button>
+                                            <textarea class="form-control" rows="5" id="txtMessage" name="txtMessage" oninput="validateTextbox(this,true,'Enter subject')" placeholder="Message"></textarea>
+                                            <div class="form-error-msg"></div>
                                         </div>
-
+                                        <button type="button" class="form-control" id="btnSubmit" onclick=validateForm()>Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -192,33 +194,58 @@
 
         {% block jslinks %}
         <!-- JAVASCRIPT FILES -->
-            {% load static %}
-            <script src="{% static 'slick/jquery-migrate-1.2.1.min.js' %}"></script>
-            <script src="{% static 'js/jquery.sticky.js' %}"></script>
-            <script src="{% static 'slick/slick.min.js' %}"></script>
-            <script src="{% static 'js/click-scroll.js' %}"></script>
-            <script src="{% static 'js/custom.js' %}"></script>
-            <script type="text/javascript">
-                    $(document).ready(function(){
-                        $('.slick-banner').slick({
-                            dots: true,
-                            infinite: true,
-                            autoplay:true,
-                            fade: true,
-                            cssEase: 'linear'
-                        });
-                    });
-                
-                    validateForm = function(){
-                        var save=true
-                        console.log("form called")
-                        if($("#txtName").val().trim().length ==0) save=false
-                        if($("#txtEmail").val().trim().length ==0) save=false
-                        if($("#txtSubject").val().trim().length ==0) save=false
+{% load static %}
+<script src="{% static 'slick/jquery-migrate-1.2.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.sticky.js' %}"></script>
+<script src="{% static 'slick/slick.min.js' %}"></script>
+{% comment %} <script src="{% static 'js/click-scroll.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/custom.js' %}"></script>
+<script type="text/javascript">
+    var _isFocus;
+    $(document).ready(function(){
+        $('.slick-banner').slick({
+            dots: true,
+            infinite: true,
+            autoplay:true,
+            fade: true,
+            cssEase: 'linear'
+        });
+    });
+         
+    
+    validateForm = function(){
+        var save=true
+        _isFocus=true
+        console.log("form called")
+        if(!validateTextbox("#txtName",true,"Enter name")) save=false
+        if(!validateTextbox("#txtEmail",true,"Enter email")) save=false
+        if(!validateTextbox("#txtSubject",true,"Enter subject")) save=false
+        if(!validateTextbox("#txtMessage",true,"Enter message")) save=false
 
-                        if(save){
-                            $("#btnSubmit").attr("type","submit")
-                        }
-                    }
-            </script>
-        {% endblock jslinks%}
+        if(save){
+            $("#btnSubmit").attr("type","submit")
+        }
+    }
+
+    validateTextbox=function(obj,triggerfocus, message){
+        hideError(obj)
+        if($(obj).val()=="-1"){
+            showError(obj,"Select time zone")
+            if(!_isFocus){
+                if(triggerfocus) $(obj).focus()
+                _isFocus=true
+            }
+            return false
+        }
+        return true                   
+    }
+
+    hideError = function(obj){
+        $(obj).siblings(".form-error-msg").hide()
+    }
+                        
+    showError = function(obj,msg){
+        $(obj).siblings(".form-error-msg").text(msg).show()
+    }
+</script>
+{% endblock jslinks%}

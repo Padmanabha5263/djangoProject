@@ -7,6 +7,20 @@ Jquery<br>
 Bootstrap<br>
 Django<br>
 python<br>
-mysql<br>
+sqlite<br>
+
+
+Useful commands
+-----------------
+django-admin startproject mysiteproject
+
+python manage.py startapp appname 
+
+python manage.py runserver
+
+python manage.py migrate
+
+python manage.py makemigrations my_app
+
 
 happy coading
