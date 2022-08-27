@@ -5,7 +5,16 @@
 
         {% block csslinks %}
             <!-- CSS FILES -->
-        
+            <style>
+                .form-error-msg{
+                    color:red;
+                    font-size: 12px;
+                }
+                .custom-form .form-control{
+                    margin-bottom:10px !important;
+                }
+            </style>
+
             <link rel="preconnect" href="https://fonts.googleapis.com">
             
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,17 +163,16 @@
 
                             <div class="col-lg-8 col-12 mx-auto">
                                 <form class="custom-form contact-form bg-white shadow-lg"  method="post">
-                                    {% csrf_token %}
-                                    <h2>Please Say Hi</h2>
+                                    <h2 id="formHeading">Please Say Hi</h2>
 
-                                    <div class="row">
+                                    <div class="row" id="formFields">
                                         <div class="col-lg-4 col-md-4 col-12">                                    
                                             <input type="text" name="txtName" id="txtName" class="form-control" oninput="validateTextbox(this,true,'Enter name')" placeholder="Name" >
                                             <div class="form-error-msg"></div>
                                         </div>
 
                                         <div class="col-lg-4 col-md-4 col-12">         
-                                            <input type="email" name="txtEmail" id="txtEmail" oninput="validateTextbox(this,true,'Enter email')" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email" >
+                                            <input type="email" name="txtEmail" id="txtEmail" oninput="validateTextbox(this,true,'Enter email')"  class="form-control" placeholder="Email" >
                                             <div class="form-error-msg"></div>
                                         </div>
 
@@ -177,7 +185,7 @@
                                             <textarea class="form-control" rows="5" id="txtMessage" name="txtMessage" oninput="validateTextbox(this,true,'Enter subject')" placeholder="Message"></textarea>
                                             <div class="form-error-msg"></div>
                                         </div>
-                                        <button type="button" class="form-control" id="btnSubmit" onclick=validateForm()>Submit</button>
+                                        <button type="button" class="form-control" id="btnSubmit" onclick="submitMsgForm()">Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -213,24 +221,25 @@
     });
          
     
-    validateForm = function(){
+    submitMsgForm = function(){
         var save=true
         _isFocus=true
-        console.log("form called")
         if(!validateTextbox("#txtName",true,"Enter name")) save=false
         if(!validateTextbox("#txtEmail",true,"Enter email")) save=false
         if(!validateTextbox("#txtSubject",true,"Enter subject")) save=false
         if(!validateTextbox("#txtMessage",true,"Enter message")) save=false
 
         if(save){
-            $("#btnSubmit").attr("type","submit")
+            console.log("form called")
+            $("#btnSubmit").attr("disabled",true);
+            submitform();
         }
     }
 
     validateTextbox=function(obj,triggerfocus, message){
         hideError(obj)
-        if($(obj).val()=="-1"){
-            showError(obj,"Select time zone")
+        if($(obj).val().trim().length=="0"){
+            showError(obj, message)
             if(!_isFocus){
                 if(triggerfocus) $(obj).focus()
                 _isFocus=true
@@ -238,6 +247,31 @@
             return false
         }
         return true                   
+    }
+
+    submitform=function(){
+        $.ajax({
+            type: "POST",
+            url: {% url 'collegeInfo:index' %},
+            data:{
+                "name":$("#txtName").val(),
+                "email":$("#txtEmail").val(),
+                "subject":$("#txtSubject").val(),
+                "message":$("#txtMessage").val(),
+                "csrfmiddlewaretoken": '{{ csrf_token }}'
+            },
+            success: function (xml) {
+              onsubmitSuccess(xml);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr)
+            },
+          });
+    }
+
+    onsubmitSuccess=function(data){
+        $("#formHeading").empty().text("Dear "+data.name).append()
+        $("#formFields").empty().html("<p>"+data.message+"</p>").append()
     }
 
     hideError = function(obj){
