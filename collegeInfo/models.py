@@ -9,3 +9,6 @@ class ReachUp(models.Model):
     message = models.CharField(max_length=300)
     class Meta:
         db_table = "ReachUp"
+
+    def __str__(self):
+        return f"name={self.name} email={self.email} subject={self.subject} message={self.message}"
