@@ -19,7 +19,7 @@ def index(request):
                 "name":name,
                 "message":"Thank you For your Query kindly we will get back to you"
             }
-            AutomateEmail(email, name)
+            #AutomateEmail(email, name)
             return JsonResponse(converTime, status=200)
         except:
             print("error")
